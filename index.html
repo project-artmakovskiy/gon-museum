@@ -22,6 +22,8 @@
 #gon .wm small{display:block;font-weight:400;font-size:10px;letter-spacing:.28em;color:var(--mut)}
 #gon .home{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,3vw,30px)}
 #gon .topics{display:grid;gap:10px}
+#gon .hrules{font-size:14px;line-height:1.55;color:var(--mut);max-width:760px}
+#gon .hrules b{font-weight:500;color:var(--ink);display:block;margin-bottom:4px}
 #gon .tp{background:var(--card);border:0;border-left:4px solid var(--acc);border-radius:var(--r);
      padding:clamp(20px,2.6vw,28px) clamp(20px,2.6vw,30px);cursor:pointer;text-align:left;color:var(--ink);
      font-size:clamp(19px,2.6vw,24px);font-weight:500;text-transform:uppercase;line-height:1.1;
@@ -253,8 +255,9 @@ const lock=()=>`<div class="lock">${LOGO||'<div class="wm"><small>Музей</sm
 
 function home(){
  app.innerHTML=`<div class="home">${lock()}
-  <div><h1>Викторина Музея ГОН</h1><p class="lead">Десять вопросов о Кремле, первых лицах и отечественном автопроме. На каждый вопрос — две минуты.</p><p class="lead pick">Выберите тему</p></div>
+  <div><h1>Викторина Музея ГОН</h1><p class="lead">Десять вопросов о Кремле, первых лицах и отечественном автопроме. На каждый вопрос — две минуты. Если правильно ответите на все вопросы — получите билет в Музей на стенде Музея Гаража особого назначения на выставке «Поехали 2026», стенд 13.</p><p class="lead pick">Выберите тему</p></div>
   <div class="topics">${Object.keys(T).map(k=>`<button class="tp" data-k="${k}">${esc(T[k].title)}<span class="ar">&rarr;</span></button>`).join('')}</div>
+  <div class="hrules"><b>Правила получения билета</b>Билет можно получить только на стенде Музея Гаража особого назначения на выставке «Поехали 2026», стенд 13, и только с 13 по 15 ноября 2026 года. Для получения билета необходимо правильно ответить на все вопросы викторины.</div>
  </div>`;
  app.querySelectorAll('.tp').forEach(b=>b.onclick=()=>start(b.dataset.k));
 }
@@ -379,7 +382,9 @@ function result(){
  const perfect = right===st.pool.length;
  const win = perfect
   ? `<div class="ttl">Идеальный результат!</div>
-     <div class="lead">Вы ответили верно на все вопросы. Поделитесь своим достижением с друзьями.</div>`
+     <div class="lead">Вы ответили верно на все вопросы. Поделитесь своим достижением с друзьями.</div>
+     <div class="lead">Получите билет в Музей на стенде Музея Гаража особого назначения на выставке «Поехали 2026», стенд 13.</div>
+     <div class="rules">Билет можно получить только на стенде Музея Гаража особого назначения на выставке «Поехали 2026», стенд 13, и только с 13 по 15 ноября 2026 года. Для получения билета необходимо правильно ответить на все вопросы викторины.</div>`
   : `<div class="ttl">Почти получилось!</div>
      <div class="lead">${right} из ${st.pool.length} — это уже неплохо. Попробуйте ещё раз, чтобы улучшить результат.
        Подпишитесь на соцсети музея: там столько интересного, что в следующий раз получится ответить на все вопросы.</div>`;
